@@ -2,6 +2,7 @@ ada kemungkinan berguna :)
 
 Copy folder demo-appDB, lalu paste di xampp > htdocs
 Buka XAMMP Control Panel, start Apache dan MySQL, lalu admin MySQL
-Ketik import di halaman phpMyAdmin, import file schema.sql 
+Ketik import di halaman phpMyAdmin, import file schema.sql
+(nama databasenya : showroom_db)
 Buka XAMMP Control Panel, lalu admin Apache
 Ganti localhost/dashboard/ yang diatas jadi localhost/demo-appDB/index.html
