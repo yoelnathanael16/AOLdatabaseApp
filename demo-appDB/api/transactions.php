@@ -7,14 +7,14 @@ if ($method === 'POST') {
     $d = json_decode(file_get_contents('php://input'), true);
     try {
         $pdo->beginTransaction();
-        $h = $pdo->prepare('INSERT INTO TransactionHeader (TransactionID, CustomerID, TransactionDate)
-                            VALUES(:tid,:cid,:tdate)');
-        $h->execute([':tid'=>$d['TransactionID'],':cid'=>$d['CustomerID'],':tdate'=>$d['TransactionDate']]);
+        $h = $pdo->prepare('INSERT INTO TransactionHeader (TransactionID, CustomerID, TransactionDate, TransacionTime)
+                            VALUES(:tid,:cid,:tdate,:ttime)');
+        $h->execute([':tid'=>$d['TransactionID'],':cid'=>$d['CustomerID'],':tdate'=>$d['TransactionDate'],':ttime'=>$d['TransactionTime']]);
 
-        $detail = $pdo->prepare('INSERT INTO TransactionDetail (TransactionID, ProductID, Quantity, UnitPrice)
-                                 VALUES(:tid,:pid,:qty,:price)');
+        $detail = $pdo->prepare('INSERT INTO TransactionDetail (TransactionID, ProductID, Quantity, UnitPrice, PaymentMethod)
+                                 VALUES(:tid,:pid,:qty,:price,:method)');
         foreach ($d['details'] as $it) {
-            $detail->execute([':tid'=>$d['TransactionID'],':pid'=>$it['ProductID'],':qty'=>$it['Quantity'],':price'=>$it['UnitPrice']]);
+            $detail->execute([':tid'=>$d['TransactionID'],':pid'=>$it['ProductID'],':qty'=>$it['Quantity'],':price'=>$it['UnitPrice'],':method'=>$it['PaymentMethod']]);
         }
         $pdo->commit();
         echo json_encode(['success'=>true]);
