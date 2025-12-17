@@ -59,18 +59,15 @@ document.getElementById('formTransaction').addEventListener('submit', async e=>{
 
 fetchProducts();fetchCustomers();fetchTransactions();
 
-// Tambahkan di objek api
 api.categories = 'api/categories.php';
 api.stats = 'api/stats.php';
 
-// Fungsi Fetch Kategori
 async function fetchCategories() {
   const res = await fetch(api.categories);
   const data = await res.json();
   document.getElementById('lstCategories').innerHTML = data.map(c => `<li>${c.CategoryID} - ${c.CategoryName}</li>`).join('');
 }
 
-// Fungsi Fetch Statistik
 async function fetchStats() {
   const res = await fetch(api.stats);
   const data = await res.json();
@@ -82,7 +79,6 @@ async function fetchStats() {
     `<li>${c.Color}: <strong>${c.TotalTerjual} unit</strong></li>`).join('');
 }
 
-// Event Listener Form Kategori
 document.getElementById('formCategory').addEventListener('submit', async e => {
   e.preventDefault();
   const f = new FormData(e.target);
@@ -94,6 +90,4 @@ document.getElementById('formCategory').addEventListener('submit', async e => {
 
 document.getElementById('refreshStats').addEventListener('click', fetchStats);
 
-// Panggil saat awal load
-fetchCategories();
-fetchStats();
+fetchCategories(); fetchStats();
